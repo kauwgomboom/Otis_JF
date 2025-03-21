@@ -541,15 +541,19 @@ end
 
 
 function init()
+  nb.init()
   nb:start("nb_jf")
   nb:enable("nb_jf")
+  nb:add_param("voice_id", "voice")          -- lets you select a voice (e.g., nb_jf)
+  nb:add_player_params()                     -- adds the parameters for the current voice
 
-  nb.config.device = 1        -- MIDI device number
-  nb.config.channel = 1       -- MIDI channel
-  nb.config.out = "jf"        -- send to Just Friends
+  nb.config.device = 1            -- your Keystep device number
+  nb.config.channel = 1
+  nb.config.out = "jf"
   nb.config.voice_mode = "poly"
   nb.config.mode = "sound"
   nb:save_config()
+
   -- set the midi event function
   m.event = midi_control
   -- engine parameters
