@@ -583,18 +583,17 @@ function init()
   params:add_option("speed_controls", "speed controls", spds.names, 1)
 
   params:add{
-    type = "option",
-    id = "audio_routing",
-    name = "audio routing", 
-    options = {"in+cut->eng", "in->eng", "cut->eng"},
-    default = 1,
-    action = function(value) 
-      rerouting_audio = true
-      clock.run(function()
-        clock.sleep(0.1)
-        route_audio()
-      end)
-    end
+  type = "option",
+  id = "audio_routing",
+  name = "audio routing", 
+  options = {"in+cut->eng", "in->eng", "cut->eng"},
+  default = 1,
+  action = function(value) 
+    rerouting_audio = true
+    clock.run(function()
+      route_audio()
+    end)
+  end
   }
   params:bang()
   -- setup softcut and start the phase polls
