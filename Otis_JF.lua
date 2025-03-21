@@ -72,7 +72,7 @@ local g_alt = false
 local sc = include("lib/tlps")
 sc.file_path = "/home/we/dust/audio/tape/otis."
 
-local nb = require("nb")
+local nb = include("lib/nb/nb")
 
 local m = midi.connect()
 
