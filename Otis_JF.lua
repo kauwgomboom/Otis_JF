@@ -589,10 +589,13 @@ function init()
     default = 1,
     action = function(value) 
       rerouting_audio = true
-      clock.run(route_audio)
+      clock.run(function()
+        clock.sleep(0.5)
+        route_audio()
+      end)
     end
     }
-
+  params:bang()
   -- setup softcut and start the phase polls
   sc.init()
   for i = 1, 2 do
