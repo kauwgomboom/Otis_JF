@@ -589,10 +589,7 @@ function init()
     default = 1,
     action = function(value) 
       rerouting_audio = true
-      clock.run(function()
-        clock.sleep(0.5)
-        route_audio()
-      end)
+      clock.run(route_audio)
     end
     }
   params:bang()
