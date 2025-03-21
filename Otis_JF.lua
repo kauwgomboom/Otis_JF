@@ -591,7 +591,7 @@ function init()
     action = function(value) 
       rerouting_audio = true
       clock.run(function()
-        clock.sleep(0.1) -- optional but gives time for things to settle
+        clock.sleep(0.1)
         route_audio()
       end)
     end
@@ -1135,27 +1135,26 @@ function grid_redraw()
 end
 
 function route_audio()
-    clock.sleep(0.5)
-    local selected_route = params:get("audio_routing")
-    if rerouting_audio == true then
-      rerouting_audio = false
-      if selected_route == 1 then -- audio in + softcut output -> supercollider
-        os.execute("jack_connect crone:output_5 SuperCollider:in_1;")  
-        os.execute("jack_connect crone:output_6 SuperCollider:in_2;")
-        os.execute("jack_connect softcut:output_1 SuperCollider:in_1;")  
-        os.execute("jack_connect softcut:output_2 SuperCollider:in_2;")
-      elseif selected_route == 2 then --just audio in -> supercollider
-        os.execute("jack_disconnect softcut:output_1 SuperCollider:in_1;")  
-        os.execute("jack_disconnect softcut:output_2 SuperCollider:in_2;")
-        os.execute("jack_connect crone:output_5 SuperCollider:in_1;")  
-        os.execute("jack_connect crone:output_6 SuperCollider:in_2;")
-      elseif selected_route == 3 then -- just softcut output -> supercollider
-        os.execute("jack_disconnect crone:output_5 SuperCollider:in_1;")  
-        os.execute("jack_disconnect crone:output_6 SuperCollider:in_2;")
-        os.execute("jack_connect softcut:output_1 SuperCollider:in_1;")  
-        os.execute("jack_connect softcut:output_2 SuperCollider:in_2;")
-      end
+  local selected_route = params:get("audio_routing")
+  if rerouting_audio == true then
+    rerouting_audio = false
+    if selected_route == 1 then
+      os.execute("jack_connect crone:output_5 SuperCollider:in_1;")
+      os.execute("jack_connect crone:output_6 SuperCollider:in_2;")
+      os.execute("jack_connect softcut:output_1 SuperCollider:in_1;")
+      os.execute("jack_connect softcut:output_2 SuperCollider:in_2;")
+    elseif selected_route == 2 then
+      os.execute("jack_disconnect softcut:output_1 SuperCollider:in_1;")
+      os.execute("jack_disconnect softcut:output_2 SuperCollider:in_2;")
+      os.execute("jack_connect crone:output_5 SuperCollider:in_1;")
+      os.execute("jack_connect crone:output_6 SuperCollider:in_2;")
+    elseif selected_route == 3 then
+      os.execute("jack_disconnect crone:output_5 SuperCollider:in_1;")
+      os.execute("jack_disconnect crone:output_6 SuperCollider:in_2;")
+      os.execute("jack_connect softcut:output_1 SuperCollider:in_1;")
+      os.execute("jack_connect softcut:output_2 SuperCollider:in_2;")
     end
+  end
 end
 
 function cleanup ()
