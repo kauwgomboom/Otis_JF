@@ -544,7 +544,7 @@ function init()
   nb.init()
   nb:start("nb_jf")
   nb:enable("nb_jf")
-  nb:add_param("voice_id", "voice")          -- lets you select a voice (e.g., nb_jf)
+  params:set("voice_id", "nb_jf")     -- lets you select a voice (e.g., nb_jf)
   nb:add_player_params()                     -- adds the parameters for the current voice
 
   nb.config.device = 1            -- your Keystep device number
